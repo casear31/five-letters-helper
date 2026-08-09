@@ -1,10 +1,48 @@
 
  arr = get_array_word();
+ let arr1 = new Array;
+ arr1.push(arr[0],arr[1]);
+ 
+
+ console.log(arr1);
+ let finalList = new Array; 
 console.log(arr[0]);
 
+selectWordsWithGoldenLetter(arr1)
+
 outputPlace = document.getElementById('output-place');
+golden1 = document.getElementById('1-gold');
+golden2 = document.getElementById('2-gold');
+golden3 = document.getElementById('3-gold');
+golden4 = document.getElementById('4-gold');
+golden5 = document.getElementById('5-gold');
+
+white1 = document.getElementById('1-white');
+white2 = document.getElementById('2-white');
+white3 = document.getElementById('3-white');
+white4 = document.getElementById('4-white');
+white5 = document.getElementById('5-white');
+
+
+grayArray = document.getElementById('gray-array');
+
+function findSuitableWords() {
+
+}
+function selectWordsWithGoldenLetter(arr1) {
+    arr1.forEach(element => {
+       let word = [...element];
+       if(word[0] =='а') {
+         console.log(element + "lf");
+       }
+    });
+}
+
+
 console.log(outputPlace.textContent);
 outputPlace.innerText = arr[0];
+
+
 
 function get_array_word() {
     return [
