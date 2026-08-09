@@ -33,7 +33,7 @@ function selectWordsWithGoldenLetter(arr1) {
     arr1.forEach(element => {
        let word = [...element];
        if(word[0] =='а') {
-         console.log(element + "lflf");
+         console.log(element + "lf");
        }
     });
 }
