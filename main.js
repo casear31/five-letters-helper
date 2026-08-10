@@ -10,34 +10,49 @@ console.log(arr[0]);
 
 selectWordsWithGoldenLetter(arr1)
 
-outputPlace = document.getElementById('output-place');
-golden1 = document.getElementById('1-gold');
-golden2 = document.getElementById('2-gold');
-golden3 = document.getElementById('3-gold');
-golden4 = document.getElementById('4-gold');
-golden5 = document.getElementById('5-gold');
+const outputPlace = document.getElementById('output-place');
+const golden1 = document.getElementById('1-gold');
+const golden2 = document.getElementById('2-gold');
+const golden3 = document.getElementById('3-gold');
+const golden4 = document.getElementById('4-gold');
+const golden5 = document.getElementById('5-gold');
 
-white1 = document.getElementById('1-white');
-white2 = document.getElementById('2-white');
-white3 = document.getElementById('3-white');
-white4 = document.getElementById('4-white');
-white5 = document.getElementById('5-white');
+const white1 = document.getElementById('1-white');
+const white2 = document.getElementById('2-white');
+const white3 = document.getElementById('3-white');
+const white4 = document.getElementById('4-white');
+const white5 = document.getElementById('5-white');
 
 
-grayArray = document.getElementById('gray-array');
+const grayArray = document.getElementById('gray-array');
 
 function findSuitableWords() {
 
 }
-function selectWordsWithGoldenLetter(arr1) {
-    arr1.forEach(element => {
+function selectWordsWithGoldenLetter(arr) {
+    arr.forEach(element => {
        let word = [...element];
-       if(word[0] =='а') {
+       if(word[0] == golden1 || word[1] == golden2 || word[2] == golden3 || word[3] == golden4 || word[4] == golden5 ) {
          console.log(element + "lf");
        }
     });
 }
 
+function selectWordsWithoutGrayLetters(arr) {
+    arr.forEach(element => {
+        let word = [...element];
+        let isFound = false;
+        word.forEach(word_letter => {
+            if(grayArray.indexOf(word_letter) > -1) {
+                isFound = true;    
+            };    
+        }); 
+        if(!isFound){
+            finalList.push(element);
+            console.log(element);
+        };
+    });
+}
 
 console.log(outputPlace.textContent);
 outputPlace.innerText = arr[0];
