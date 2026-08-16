@@ -1,16 +1,20 @@
 
- arr = get_array_word();
+ const arr = get_array_word();
  let arr1 = new Array;
  arr1.push(arr[0],arr[1]);
+
+ 
  
 
  console.log(arr1);
  let finalList = new Array; 
 console.log(arr[0]);
 
-selectWordsWithGoldenLetter(arr1)
+btnFindTheWords.onclick(selectWordsWithGoldenLetter());
+
 
 const outputPlace = document.getElementById('output-place');
+const btnFindTheWords = document.getElementById('find-the-words');
 const golden1 = document.getElementById('1-gold');
 const golden2 = document.getElementById('2-gold');
 const golden3 = document.getElementById('3-gold');
@@ -39,8 +43,8 @@ function selectWordsWithGoldenLetter(arr) {
     });
 }
 
-function selectWordsWithoutGrayLetters(arr) {
-    arr.forEach(element => {
+function selectWordsWithoutGrayLetters() {
+    arr1.forEach(element => {
         let word = [...element];
         let isFound = false;
         word.forEach(word_letter => {
@@ -48,9 +52,9 @@ function selectWordsWithoutGrayLetters(arr) {
                 isFound = true;    
             };    
         }); 
-        if(!isFound){
-            finalList.push(element);
-            console.log(element);
+        if(isFound){
+            let del_element = arr1.pop(element);
+            console.log("deleted " + del_element);
         };
     });
 }
