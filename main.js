@@ -38,7 +38,7 @@ function selectWordsWithGoldenLetter(arr) {
        let word = [...element];
        if((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) ) {
             finalList.push(element); 
-            console.log(element + "lf");
+            console.log(element + "lfssddss");
        }
     });
 }
