@@ -1,54 +1,140 @@
 
  const arr = get_array_word();
- let arr1 = new Array;
- arr1.push(arr[0],arr[1]);
+//  let arr1 = new Array;
+//  arr1.push(arr[0],arr[1]);
+//  console.log(arr1);
+//  let finalList = new Array; 
+// console.log(arr[0]);
 
-isEmptyGold = (golden1 + golden2 + golden3 + golden4 + golden5 ) == ""
-if(!isEmptyGold ){
-    selectWordsWithGoldenLetter();
-}
- 
- 
 
- console.log(arr1);
- let finalList = new Array; 
-console.log(arr[0]);
-
-btnFindTheWords.onclick(selectWordsWithGoldenLetter());
 
 
 const outputPlace = document.getElementById('output-place');
 const btnFindTheWords = document.getElementById('find-the-words');
-const golden1 = document.getElementById('1-gold');
-const golden2 = document.getElementById('2-gold');
-const golden3 = document.getElementById('3-gold');
-const golden4 = document.getElementById('4-gold');
-const golden5 = document.getElementById('5-gold');
-
-const white1 = document.getElementById('1-white');
-const white2 = document.getElementById('2-white');
-const white3 = document.getElementById('3-white');
-const white4 = document.getElementById('4-white');
-const white5 = document.getElementById('5-white');
-
-
-const grayArray = document.getElementById('gray-array');
+btnFindTheWords.addEventListener('click', function(event){
+    event.preventDefault();
+    findSuitableWords();
+})
+//.onclick(findSuitableWords());
 
 function findSuitableWords() {
+    const goldenMap = new Map();
+    const whiteMap = new Map();
+    const grayArray = [...(document.getElementById('gray-array').value)];
 
+
+
+    for (let g = 1; g <= 5; g++) {
+        let goldenLetter = document.getElementById(g.toString() + "-gold").value;
+        console.log(goldenLetter);
+        if( goldenLetter != "" ) {
+            goldenMap.set(g-1, goldenLetter);
+        }
+    }
+
+    for (let w = 1; w <= 5; w++) {
+        let whiteLetter = document.getElementById(w.toString() + "-white").value;
+        console.log(whiteLetter);
+        if( whiteLetter != "" ) {
+            whiteMap.set(w, whiteLetter);
+        }
+    }
+    selectWordsWithoutGrayLetters(grayArray);
+
+    if(goldenMap.size > 0 ){
+        selectWordsWithGoldenLetter(goldenMap);
+    }
+
+    if(whiteMap.size > 0 ){
+        selectWordsWithWhiteLetter(whiteMap)
+    }
+    console.log(arr);
+    // console.log(goldenMap);
+    // console.log(whiteMap);
 }
-function selectWordsWithGoldenLetter() {
+// const golden1 = document.getElementById('1-gold');
+// const golden2 = document.getElementById('2-gold');
+// const golden3 = document.getElementById('3-gold');
+// const golden4 = document.getElementById('4-gold');
+// const golden5 = document.getElementById('5-gold');
+
+
+
+
+// const white1 = document.getElementById('1-white');
+// const white2 = document.getElementById('2-white');
+// const white3 = document.getElementById('3-white');
+// const white4 = document.getElementById('4-white');
+// const white5 = document.getElementById('5-white');
+// const whiteArray = white1 + white2 + white3 + white4 + white5;
+
+// const grayArray = document.getElementById('gray-array');
+
+// function findSuitableWords() {
+//     const isEmptyGold = (golden1 + golden2 + golden3 + golden4 + golden5 ) == ""
+
+//     const isEmptyWhite = whiteArray == "";
+//     if(!isEmptyGold ){
+//         selectWordsWithGoldenLetter();
+//     }
+//     if(!isEmptyWhite ){
+//         selectWordsWithWhiteLetter();
+//     }
+
+// }
+
+function selectWordsWithGoldenLetter(goldenMap) {
     arr.forEach((element, index) => {
        let word = [...element];        
-        if (!((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) )) {
+       let isGoldenMatch = true;
+       goldenMap.forEach((value, key) => {
+            if (word[key] != value) {
+                isGoldenMatch = false;
+            }
+       });
+       if (!isGoldenMatch) {
             arr.splice(index,1); 
-            //console.log(element + "lfssddss");
-       }
+       };
+
     });
 }
 
-function selectWordsWithoutGrayLetters() {
-    arr1.forEach((element, index) => {
+function selectWordsWithWhiteLetter(whiteMap) {            
+
+    arr.forEach((element, index) => {
+       let word = [...element];  
+       //const setWhite = new Set();   
+       let whiteArray = "";   
+       whiteMap.forEach(value => {
+            whiteArray += value;
+       })
+        //console.log(setWhite);
+
+       let haveAllWhiteInTheWord = true;
+       let hasWhiteOnTheWhitePosition = false;
+
+        [...whiteArray].forEach(whiteLetter => {
+            if(word.indexOf(whiteLetter) == -1) {
+                haveAllWhiteInTheWord = false;
+            }
+        }) 
+
+       whiteMap.forEach((value, key) => {
+            if ( [...value].indexOf(word[key]) > -1) {
+                hasWhiteOnTheWhitePosition = true;
+            }
+       });
+       if ( hasWhiteOnTheWhitePosition || !haveAllWhiteInTheWord) {
+            arr.splice(index,1); 
+       };
+
+    });
+}
+
+function selectWordsWithoutGrayLetters(grayArray) {
+        arr.splice(0,1);      
+     arr.splice(1,1); 
+    arr.forEach((element, index) => {
         let word = [...element];
         let isFound = false;
         word.forEach(word_letter => {
@@ -57,14 +143,34 @@ function selectWordsWithoutGrayLetters() {
             };    
         }); 
         if(isFound){
-            let del_element = arr1.pop(element);
-            console.log("deleted " + del_element);
+            arr.splice(index,1); 
         };
     });
 }
 
-console.log(outputPlace.textContent);
-outputPlace.innerText = arr[0];
+// function selectWordsWithWhiteLetter() {
+//     arr.forEach((element, index) => {
+//        let word = [...element];   
+//        isAllWhiteLetterInTheWord = true;
+//        word.forEach(word_letter => {
+//             if(word_letter.indexOf() == -1) {
+//                 isAllWhiteLetterInTheWord = false;
+//             }
+//        })
+
+//        if (isAllWhiteLetterInTheWord){
+
+//        }
+//         if (!((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) )) {
+//             arr.splice(index,1); 
+//             //console.log(element + "lfssddss");
+//        }
+//     });
+// }
+
+
+// // console.log(outputPlace.textContent);
+// // outputPlace.innerText = arr[0];
 
 
 
