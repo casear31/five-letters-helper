@@ -3,6 +3,10 @@
  let arr1 = new Array;
  arr1.push(arr[0],arr[1]);
 
+isEmptyGold = (golden1 + golden2 + golden3 + golden4 + golden5 ) == ""
+if(!isEmptyGold ){
+    selectWordsWithGoldenLetter();
+}
  
  
 
@@ -33,18 +37,18 @@ const grayArray = document.getElementById('gray-array');
 function findSuitableWords() {
 
 }
-function selectWordsWithGoldenLetter(arr) {
-    arr.forEach(element => {
-       let word = [...element];
-       if((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) ) {
-            finalList.push(element); 
-            console.log(element + "lfssddss");
+function selectWordsWithGoldenLetter() {
+    arr.forEach((element, index) => {
+       let word = [...element];        
+        if (!((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) )) {
+            arr.splice(index,1); 
+            //console.log(element + "lfssddss");
        }
     });
 }
 
 function selectWordsWithoutGrayLetters() {
-    arr1.forEach(element => {
+    arr1.forEach((element, index) => {
         let word = [...element];
         let isFound = false;
         word.forEach(word_letter => {
