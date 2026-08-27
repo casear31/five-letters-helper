@@ -10,7 +10,7 @@
     const goldenMap = new Map();
     const whiteMap = new Map();
 
-    const finalArray = new Array();
+    //const finalArray = new Array();
 
 
 const outputPlace = document.getElementById('output-place');
@@ -40,60 +40,46 @@ function findSuitableWords() {
             whiteMap.set(w-1, whiteLetter);
         }
     }
-    selectWordsWithoutGrayLetters(grayArray);
-
-    if(goldenMap.size > 0 ){
-        selectWordsWithGoldenLetter();
-    }
-
-    if(whiteMap.size > 0 ){
-        selectWordsWithWhiteLetter()
-    }
     
-    console.log("arr");
-    console.log(arr);
-    console.log("finalArray");
-    console.log(finalArray);
+        const gray_filter = selectWordsWithoutGrayLetters(arr,grayArray);
+        console.log("gray_filter", gray_filter);
+        const gold_filter = selectWordsWithGoldenLetter(gray_filter, goldenMap);
+        console.log("gold_filter", gold_filter);
+        const white_filter = selectWordsWithWhiteLetter(gold_filter, whiteMap);
+        console.log("white_filter", white_filter);
+
+        let answerList = "";
+        white_filter.forEach(element => {
+            answerList += element + "<br/>";
+        })
+
+        outputPlace.innerHTML = answerList;
+
+    
+    // console.log("arr");
+    // console.log(arr);
+    //console.log("finalArray");
+    //console.log(finalArray);
 
     // console.log(goldenMap);
-    // console.log(whiteMap);
+    // console.log(whiteMap); выксназдпиог кнгзываподси
 }
-// const golden1 = document.getElementById('1-gold');
-// const golden2 = document.getElementById('2-gold');
-// const golden3 = document.getElementById('3-gold');
-// const golden4 = document.getElementById('4-gold');
-// const golden5 = document.getElementById('5-gold');
 
 
-
-
-// const white1 = document.getElementById('1-white');
-// const white2 = document.getElementById('2-white');
-// const white3 = document.getElementById('3-white');
-// const white4 = document.getElementById('4-white');
-// const white5 = document.getElementById('5-white');
-// const whiteArray = white1 + white2 + white3 + white4 + white5;
-
-// const grayArray = document.getElementById('gray-array');
-
-// function findSuitableWords() {
-//     const isEmptyGold = (golden1 + golden2 + golden3 + golden4 + golden5 ) == ""
-
-//     const isEmptyWhite = whiteArray == "";
-//     if(!isEmptyGold ){
-//         selectWordsWithGoldenLetter();
-//     }
-//     if(!isEmptyWhite ){
-//         selectWordsWithWhiteLetter();
-//     }
-
-// }
-
-function selectWordsWithGoldenLetter() {
+function selectWordsWithGoldenLetter(arrayBefore, goldenMap) {
 
         console.log("goldenMap");
     console.log(goldenMap);
-    arr.forEach((element, index) => {
+
+
+    if (goldenMap.size == 0) {    
+        console.log("goldenArrayBefore");
+    console.log(arrayBefore);
+        return arrayBefore;
+    }
+
+    const finalArray = new Array();
+    arrayBefore.forEach((element, index) => {
        let word = [...element];        
        let isGoldenMatch = true;
        goldenMap.forEach((value, key) => {
@@ -104,15 +90,24 @@ function selectWordsWithGoldenLetter() {
        if (isGoldenMatch) {
             finalArray.push(element);
        };
+       
 
     });
+    return finalArray;
 }
 
-function selectWordsWithWhiteLetter() {      
+function selectWordsWithWhiteLetter(arrayBefore, whiteMap) {      
     console.log("whiteMap");
-    console.log(whiteMap);      
+    console.log(whiteMap);  
+    
+    if (whiteMap.size == 0) {
+        return arrayBefore;
+    }
 
-    arr.forEach((element, index) => {
+    
+    const finalArray = new Array();
+
+    arrayBefore.forEach((element, index) => {
        let word = [...element];  
        //const setWhite = new Set();   
        let whiteArray = "";   
@@ -133,9 +128,9 @@ function selectWordsWithWhiteLetter() {
         if (haveAllWhiteInTheWord) {
            whiteMap.forEach((value, key) => {
                 if ( [...value].indexOf(word[key]) > -1) {
-                    //console.log(element + " " + key + " " +  value + " " + word[key-1])
+                    //console.log(element + " key: " + key + " value: " +  value + " word[key]: " + word[key] + " hasWhiteOnTheWhitePosition:" + hasWhiteOnTheWhitePosition)
                     hasWhiteOnTheWhitePosition = true;
-                   // console.log(element + " " + key + " " +  value + " " + word[key-1])
+                    console.log(element + " key: " + key + " value: " +  value + " word[key]: " + word[key] + " hasWhiteOnTheWhitePosition:" + hasWhiteOnTheWhitePosition)
                 } 
             });
         }
@@ -144,182 +139,47 @@ function selectWordsWithWhiteLetter() {
        
      //  console.log(element + " haveAllWhiteInTheWord: " + haveAllWhiteInTheWord + " hasWhiteOnTheWhitePosition: " + hasWhiteOnTheWhitePosition)
         if(!hasWhiteOnTheWhitePosition && haveAllWhiteInTheWord) {
+
             finalArray.push(element);
+            console.log(element );
        };
+       console.log(finalArray);
+
+       
 
     });
+    return finalArray;
 }
 
-function selectWordsWithoutGrayLetters(grayArray) {
+function selectWordsWithoutGrayLetters(arrayBefore,grayArray) {
     //     arr.splice(0,1);      
     //  arr.splice(1,1); 
     console.log("grayArray");
     console.log(grayArray);
-    const newGrayArray = [...grayArray]
-    arr.forEach((element, index) => {
+    if (grayArray == "") {
+        return arrayBefore;
+    }
+
+    const finalArray = new Array();
+    const newGrayArray = [...grayArray];
+    arrayBefore.forEach((element, index) => {
         const word = [...element];
-        console.log(element, word);
+        //console.log(element, word);
         let isFound = false; 
-                   //console.log("element: " + element + "word_letter: " + word_letter + "isFound : " + isFound);
-            // for(let w=0; w < 5; w++){
-            //     //console.log("element: " + element + "word_letter: " + word[w]  );
-            //     for(let g=0; g < newGrayArray.length; g++){
-            //         console.log("word[w] == grayArray[g] " + word[w] +" "+ newGrayArray[g]  );
-            //         console.log("newGrayArray[g] g:" + g +" "+ newGrayArray[g]  );
-            //         if (word[w] == newGrayArray[g]){
-            //             isFound = true;
-            //             console.log("element: " + element + "word_letter: " + word[w] + "isFound : " + isFound);
-            //         }
-            //     }
-            // }
+
        word.forEach(word_letter => {
 
-            console.log("element: " + element + "word_letter: " + word_letter + " " + newGrayArray);
+            //console.log("element: " + element + "word_letter: " + word_letter + " " + newGrayArray);
             if (newGrayArray.indexOf(word_letter) > -1) {
                 isFound = true;    
-                console.log("element: " + element + "word_letter: " + word_letter + "isFound : " + isFound);
+                //console.log("element: " + element + "word_letter: " + word_letter + "isFound : " + isFound);
             };    
         }); 
         if(!isFound){
             finalArray.push(element);
-            //console.log(element);
        };
     });
-}
-
-// function selectWordsWithWhiteLetter() {
-//     arr.forEach((element, index) => {
-//        let word = [...element];   
-//        isAllWhiteLetterInTheWord = true;
-//        word.forEach(word_letter => {
-//             if(word_letter.indexOf() == -1) {
-//                 isAllWhiteLetterInTheWord = false;
-//             }
-//        })
-
-//        if (isAllWhiteLetterInTheWord){
-
-//        }
-//         if (!((word[0] == golden1 || golden1 == "" ) &&  (word[1] == golden2  || golden2 == "" ) &&  ( word[2] == golden3  || golden3 == "" ) &&  ( word[3] == golden4  || golden4 == "" ) &&  ( word[4] == golden5  || golden5 == "" ) )) {
-//             arr.splice(index,1); 
-//             //console.log(element + "lfssddss");
-//        }
-//     });
-// }
-
-
-// // console.log(outputPlace.textContent);
-// // outputPlace.innerText = arr[0];
-
-
-
-const testWhiteMap = new Map();
-testWhiteMap.set(3, "ре");
-testWhiteMap.set(4, "у");
-
-const finalTestArr = new Array(); 
-const testArr = new Array (
-
-
-'аббат',
-'абвер',
-'Абвер',
-'Абеба',
-'Абебе',
-'Абебу',
-'Абебы',
-'абзац',
-'аборт',
-'абрам',
-'Абрам',
-'абрек',
-'абрис',
-'абхаз',
-'абцуг',
-'абшид',
-'аваль',
-'аванс',
-'авары',
-'авгит',
-'ружье',
-'авгур'
-
-);
-console.log("testArr");
-console.log(testArr);
-// selectWordsWithWhiteLetter_Test();
-console.log(testArr);
-console.log(finalTestArr);
-
-// function selectWordsWithWhiteLetter_Test() {      
-     
-
-//     testArr.forEach((element, index) => {
-//        console.log("element: " + element); 
-//        let word = [...element];  
-//        //const setWhite = new Set();   
-//        let whiteArray = "";   
-//        testWhiteMap.forEach(value => {
-//             whiteArray += value;
-//        })
-//         //console.log(setWhite);
-
-//        let haveAllWhiteInTheWord = true;
-//        let hasWhiteOnTheWhitePosition = false;
-
-//         [...whiteArray].forEach(whiteLetter => {
-//             console.log(element, whiteLetter, haveAllWhiteInTheWord);
-//             if(word.indexOf(whiteLetter) == -1) {
-//                 haveAllWhiteInTheWord = false;
-//                 console.log(element, whiteLetter, haveAllWhiteInTheWord);
-//             }
-//         }) 
-
-//         if (haveAllWhiteInTheWord) {
-//            testWhiteMap.forEach((value, key) => {
-//                 if ( [...value].indexOf(word[key-1]) > -1) {
-//                     console.log(element + " " + key + " " +  value + " " + word[key-1])
-//                     hasWhiteOnTheWhitePosition = true;
-//                     console.log(element + " " + key + " " +  value + " " + word[key-1])
-//                 } 
-//             });
-//         }
-
-       
-       
-//      //  console.log(element + " haveAllWhiteInTheWord: " + haveAllWhiteInTheWord + " hasWhiteOnTheWhitePosition: " + hasWhiteOnTheWhitePosition)
-       
-       
-//         if(!hasWhiteOnTheWhitePosition && haveAllWhiteInTheWord) {
-//             finalTestArr.push(element);
-//         } else if ( hasWhiteOnTheWhitePosition || !haveAllWhiteInTheWord) {
-//             testArr.splice(index,1); 
-//        };
-
-//     });
-// }
-
-
-const grayArray_Test = [..."кнгзываподси"];
-selectWordsWithoutGrayLetters_Test()
-  console.log(finalTestArr);
-
-function selectWordsWithoutGrayLetters_Test() {
-    console.log("grayArray_Test");
-    console.log(grayArray_Test);
-    testArr.forEach((element, index) => {
-        let word = [...element];
-        let isFound = false;
-        word.forEach(word_letter => {
-            if(grayArray_Test.indexOf(word_letter) > -1) {
-                isFound = true;    
-            };    
-        }); 
-        if(!isFound){
-            finalTestArr.push(element);
-            console.log(element);
-       };
-    });
+    return finalArray;
 }
 
 
