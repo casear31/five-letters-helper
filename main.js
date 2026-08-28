@@ -10,7 +10,11 @@
 
 
     //const finalArray = new Array();
-
+function cleanText(input) {
+    // Регулярное выражение: оставляем только буквы, цифры, пробелы и разрешённые спецсимволы
+    const regex = /[^a-zA-Z0-9\s\u00A0\u2000-\u200D\u202F\u205F\u3000]/g;
+    return input.replace(regex, '');
+}
 
 const outputPlace = document.getElementById('output-place');
 const btnFindTheWords = document.getElementById('find-the-words');
@@ -66,14 +70,21 @@ function findSuitableWords() {
 
         let answerList = "";
         white_filter.forEach(element => {
-            answerList += '<p id="' + element +'">' + element + "</p>";
+            answerList += `<div id="cls-${element}" class="${element}"><p id="${element}" class="${element}" >${element}</p>`;
+            btn_code = '<button id="btn-' + element + `" class="${element}" onclick="document.getElementById( ${'\'cls-'+element}\').style.display = 'none'">Удалить</button></div>`;
+            answerList += btn_code;
         })
         console.log("answerList ", answerList);
 
         outputPlace.innerHTML = answerList;
 
+
     
 
+    // console.log("arr");
+    // console.log(arr);
+    //console.log("finalArray");
+    //console.log(finalArray);
 
     // console.log(goldenMap);
     // console.log(whiteMap); выксназдпиог кнгзываподси
