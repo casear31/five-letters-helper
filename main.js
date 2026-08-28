@@ -34,7 +34,6 @@ btnclearFields.addEventListener('click', (e) => {
 
 
 })
-//.onclick(findSuitableWords());
 
 function findSuitableWords() {
     const arr = get_array_word();
