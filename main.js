@@ -16,7 +16,7 @@
 const outputPlace = document.getElementById('output-place');
 const btnFindTheWords = document.getElementById('find-the-words');
 btnFindTheWords.addEventListener('click', function(event){
-    event.preventDefault();
+    //event.preventDefault();
     findSuitableWords();
 })
 //.onclick(findSuitableWords());
