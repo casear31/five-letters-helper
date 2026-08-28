@@ -1,5 +1,5 @@
 
- const arr = get_array_word();
+ 
 //  let arr1 = new Array;
 //  arr1.push(arr[0],arr[1]);
 //  console.log(arr1);
@@ -7,23 +7,39 @@
 // console.log(arr[0]);
 
 
-    const goldenMap = new Map();
-    const whiteMap = new Map();
+
 
     //const finalArray = new Array();
 
 
 const outputPlace = document.getElementById('output-place');
 const btnFindTheWords = document.getElementById('find-the-words');
-btnFindTheWords.addEventListener('click', function(event){
-    //event.preventDefault();
+btnFindTheWords.addEventListener('click', (e) =>{
+    e.preventDefault();
     findSuitableWords();
 })
-//.onclick(findSuitableWords());
+const btnclearFields = document.getElementById('clear-fields');
+btnclearFields.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    for (let g = 1; g <= 5; g++) {
+        document.getElementById(g.toString() + "-gold").value = "";
+    }
+    for (let w = 1; w <= 5; w++) {
+        document.getElementById(w.toString() + "-white").value="";
+    }
+    document.getElementById('gray-array').value="";
+    outputPlace.innerHTML="";
+
+
+
+})
 
 function findSuitableWords() {
-
-    const grayArray = (document.getElementById('gray-array').value);
+    const arr = get_array_word();
+    const grayArray = document.getElementById('gray-array').value;
+    const goldenMap = new Map();
+    const whiteMap = new Map();
 
     for (let g = 1; g <= 5; g++) {
         let goldenLetter = document.getElementById(g.toString() + "-gold").value;
@@ -50,16 +66,14 @@ function findSuitableWords() {
 
         let answerList = "";
         white_filter.forEach(element => {
-            answerList += element + "<br/>";
+            answerList += '<p id="' + element +'">' + element + "</p>";
         })
+        console.log("answerList ", answerList);
 
         outputPlace.innerHTML = answerList;
 
     
-    // console.log("arr");
-    // console.log(arr);
-    //console.log("finalArray");
-    //console.log(finalArray);
+
 
     // console.log(goldenMap);
     // console.log(whiteMap); выксназдпиог кнгзываподси
