@@ -73,10 +73,7 @@ function findSuitableWords() {
         outputPlace.innerHTML = answerList;
 
     
-    // console.log("arr");
-    // console.log(arr);
-    //console.log("finalArray");
-    //console.log(finalArray);
+
 
     // console.log(goldenMap);
     // console.log(whiteMap); выксназдпиог кнгзываподси
