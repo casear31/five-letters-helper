@@ -41,12 +41,12 @@ btnclearFields.addEventListener('click', (e) => {
 
 function findSuitableWords() {
     const arr = get_array_word();
-    const grayArray = document.getElementById('gray-array').value;
+    const grayArray = document.getElementById('gray-array').value.toLowerCase();
     const goldenMap = new Map();
     const whiteMap = new Map();
 
     for (let g = 1; g <= 5; g++) {
-        let goldenLetter = document.getElementById(g.toString() + "-gold").value;
+        let goldenLetter = document.getElementById(g.toString() + "-gold").value.toLowerCase();
         console.log(goldenLetter);
         if( goldenLetter != "" ) {
             goldenMap.set(g-1, goldenLetter);
@@ -54,7 +54,7 @@ function findSuitableWords() {
     }
 
     for (let w = 1; w <= 5; w++) {
-        let whiteLetter = document.getElementById(w.toString() + "-white").value;
+        let whiteLetter = document.getElementById(w.toString() + "-white").value.toLowerCase();
         console.log(whiteLetter);
         if( whiteLetter != "" ) {
             whiteMap.set(w-1, whiteLetter);
